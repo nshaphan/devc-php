@@ -3,7 +3,7 @@ name: Gradr
 on:
   pull_request:
     branches:
-    - master
+      - master
 
 jobs:
   ch-1:
@@ -25,6 +25,7 @@ jobs:
         run: npm install
       - name: setup php
         uses: actions/checkout@v1
-        with: 
+        with:
           version: ${{ matrix.php }}
-
+      - name: check version
+        run: php --version
