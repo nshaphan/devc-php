@@ -25,7 +25,6 @@ jobs:
         run: npm install
       - name: setup php
         uses: ./
-        with: |
-          php -i
-          php -m
+        with: 
+          version: ${{ matrix.php }}
 
