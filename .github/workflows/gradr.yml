@@ -6,8 +6,8 @@ on:
       - master
 
 jobs:
-  ch-1:
-    name: audit challenge 1
+  lint:
+    name: audit code-style
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -23,15 +23,34 @@ jobs:
           version: 10.x
       - name: Install Node dependencies
         run: |
-          yarn Install
+          yarn install
           yarn add phplint
 
       - name: Run Audits
         run: yarn phplint './src/**/*.php'
-
+  ch-1:
+    needs: lint
+    name: audit challenge 1
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node_version: [12]
+        operating-system: [ubuntu-18.04]
+        php: [7.2.12]
+    steps:
       - name: setup php
         uses: actions/checkout@v1
         with:
           version: ${{ matrix.php }}
       - name: check version
         run: php --version
+
+      - name: check composer version
+        run: composer --version
+
+      - name: install phpunit
+        run: composer require --dev phpunit/phpunit ^9
+
+      - name: check phpunit version
+        run: ./vendor/bin/phpunit --version
+

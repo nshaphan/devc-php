@@ -1,0 +1,10 @@
+{
+    "name": "shaphan/devc-php",
+    "authors": [
+        {
+            "name": "shaphan",
+            "email": "chaphannzabonimana@gmail.com"
+        }
+    ],
+    "require": {}
+}
