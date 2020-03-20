@@ -21,8 +21,13 @@ jobs:
         uses: actions/checkout@v2
         with:
           version: 10.x
-      - name: npm install
-        run: npm install
+      - name: Install Node dependencies
+          yarn Install
+          yarn add phplint
+      
+      - name: Run Audits
+        run: yarn phplint './src/**/*.php'
+
       - name: setup php
         uses: actions/checkout@v1
         with:
