@@ -11,16 +11,19 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node_version: [10, 12]
+        node_version: [12]
         operating-system: [ubuntu-18.04]
         php: [7.2.12]
+
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
+
       - name: Prepare To Install
         uses: actions/checkout@v2
         with:
-          version: 10.x
+          node-version: 10.x
+
       - name: Install Node dependencies
         run: |
           yarn install
@@ -37,33 +40,28 @@ jobs:
         node_version: [12]
         operating-system: [ubuntu-18.04]
         php: [7.2.12]
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
+
       - name: Prepare to install node
         uses: actions/setup-node@v1
         with:
-          version: 10.x
-      - name: Install Deps
+          node-version: 10.x
+
+      - name: Install Jest and it's dependencies
         run: |
           yarn install
           yarn add jest jest-runner-phpunit babel-core babel-jest axios @actions/core @actions/github
-      - name: Setup PHP
+
+      - name: Setup PHP Environment
         uses: shivammathur/setup-php@v1
         with:
           php-version: "7.4"
 
-      - name: check version
-        run: php --version
-
-      - name: check composer version
-        run: composer --version
-
-      - name: install phpunit
-        run: composer require --dev phpunit/phpunit ^9
-
-      - name: check phpunit version
-        run: ./vendor/bin/phpunit --version
+      - name: install PHPunit
+        run: composer require --dev phpunit/phpunit
 
       - name: Prepare Audits
         uses: actions/checkout@v2
@@ -74,9 +72,8 @@ jobs:
       - name: Run Audits
         run: |
           ls audits
-          npx jest audits/ch-1 --json --outputFile=audits/ch-1.json --noStackTrace --config=audits/config.js
+          npx jest --json --outputFile=audits/ch-1.json --noStackTrace --config=audits/config.js
 
       - name: Report Audit Stats
         uses: ./.github/actions/ch-1
         if: always()
-      

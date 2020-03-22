@@ -9,7 +9,6 @@ const run = async () => {
         const owner = context.repo.owner;
         
         const {
-          
           numTotalTestSuites, 
           numPassedTestSuites, 
           numTotalTests, 
