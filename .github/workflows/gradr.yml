@@ -73,7 +73,7 @@ jobs:
 
       - name: Run Audits
         run: |
-          ls
+          ls audits
           npx jest audits/ch-1 --json --outputFile=audits/ch-1.json --noStackTrace --config=audits/config.js
 
       - name: Report Audit Stats
