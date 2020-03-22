@@ -47,7 +47,7 @@ jobs:
       - name: Install Deps
         run: |
           yarn install
-          yarn add jest jest-runner-phpunit @babel/core @babel/preset-env babel-jest axios @actions/core @actions/github
+          yarn add jest jest-runner-phpunit babel-core babel-jest axios @actions/core @actions/github
       - name: Setup PHP
         uses: shivammathur/setup-php@v1
         with:
